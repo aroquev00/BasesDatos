@@ -34,10 +34,9 @@ WHERE dname='Research';
 
 --6. For every project located in 'Stafford', list the project number, the controlling department number, and the department manager's last name, address, and birthdate.
 SELECT pnumber, dnum, lname, addres, bdate
-FROM project JOIN department
-ON dnum=dnumber
-JOIN employee
-ON mgrssn=ssn
+FROM project 
+JOIN department ON dnum=dnumber
+JOIN employee ON mgrssn=ssn
 WHERE plocation='Stafford';
 
 --7. Make a list of project numbers for projects that involve an employee whose last name is 'Smith', either as a worker or as a manager of the department that controls the project.
