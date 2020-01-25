@@ -66,7 +66,7 @@ FROM employee JOIN works_on
 ON ssn=essn
 WHERE lname='Smith'
 UNION
-SELECT lname
+SELECT pno
 FROM project JOIN department
 ON dnum=dnumber
 JOIN employee
@@ -82,7 +82,8 @@ WHERE ssn NOT IN (
 );
 
 SELECT fname, lname
-FROM employee LEFT JOIN dependent
+FROM employee 
+LEFT JOIN dependent
 ON ssn=essn
 WHERE essn IS NULL;
 
@@ -135,4 +136,18 @@ WHERE (
         )
         AND ssn = essn
     )
+);
+
+-- better choice probably
+SELECT fname, lname
+FROM employee e
+WHERE (
+    SELECT COUNT(dnum)
+    FROM project
+    WHERE dnum = 5
+) = (
+    SELECT count(pno)
+    from works_on
+    JOIN project ON pno = pnumber
+    WHERE dnum = 5  AND essn = e.ssn
 );
