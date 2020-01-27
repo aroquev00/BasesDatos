@@ -87,6 +87,15 @@ LEFT JOIN dependent
 ON ssn=essn
 WHERE essn IS NULL;
 
+-- resuelto por la maestra
+SELECT fname, lname
+FROM
+(SELECT ssn
+FROM employee
+EXCEPT
+SELECT essn
+FROM dependent) AS eSsn
+JOIN employee eData ON eSsn.ssn = eData.ssn;
 
 --9. Retrieve the names of managers who have at least one dependent.
 SELECT fname, lname
@@ -99,6 +108,12 @@ AND ssn IN (
     SELECT mgrssn
     FROM department
 );
+
+-- resuelto por la maestra
+SELECT fname, lname
+FROM employee AS mgr
+JOIN department AS D ON mgr.ssn = d.mgrssn
+JOIN dependent AS Dep ON mgr.ssn = Dep.essn;
 
 --10. Retrieve name of the employee and the name of the supervisor.
  SELECT e.fname, e.lname, s.fname, s.lname
